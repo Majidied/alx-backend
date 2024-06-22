@@ -2,10 +2,9 @@
 """
 Simple helper function
 """
+from typing import Tuple
 import csv
 import math
-import os
-from typing import Tuple
 from typing import List
 
 
@@ -23,7 +22,7 @@ class Server:
     Server class to paginate
     """
 
-    DATA_FILE = os.path.join(os.path.dirname(__file__), "Popular_Baby_Names.csv")
+    DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
         self.__dataset = None
