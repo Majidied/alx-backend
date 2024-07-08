@@ -24,17 +24,14 @@ class LRUCache(BaseCaching):
             None
         """
         if key and item:
-            if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                if key not in self.cache_data:
-                    discard = self.order.pop(0)
-                    del self.cache_data[discard]
-                    print("DISCARD:", discard)
-                else:
-                    self.order.remove(key)
-                    self.order.append(key)
+            if key in self.cache_data:
+                self.order.remove(key)
+            elif len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+                discard = self.order.pop(0)
+                del self.cache_data[discard]
+                print("DISCARD:", discard)
             self.cache_data[key] = item
-            if key not in self.order:
-                self.order.append(key)
+            self.order.append(key)
 
     def get(self, key):
         """
