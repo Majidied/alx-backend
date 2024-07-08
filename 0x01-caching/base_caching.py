@@ -8,7 +8,7 @@ class BaseCaching():
       - where your data are stored (in a dictionary)
     """
     MAX_ITEMS = 4
-
+    
     def __init__(self):
         """ Initiliaze
         """
