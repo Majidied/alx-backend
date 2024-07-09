@@ -5,7 +5,7 @@ from base_caching import BaseCaching
 
 class LFUCache(BaseCaching):
     """
-    LFUCache class represents a Least Frequently Used (LFU) cache 
+    LFUCache class represents a Least Frequently Used (LFU) cache
     implementation.
     It inherits from the BaseCaching class.
 
@@ -18,7 +18,7 @@ class LFUCache(BaseCaching):
         super().__init__()
         self.order = {}
         self.lfu = None
-    
+
     def put(self, key, item):
         """
         Adds an item to the cache.
@@ -39,7 +39,7 @@ class LFUCache(BaseCaching):
                     print("DISCARD:", min_key)
             self.cache_data[key] = item
             self.order[key] = 0
-    
+
     def get(self, key):
         """
         Retrieves an item from the cache.
