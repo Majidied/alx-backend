@@ -31,7 +31,7 @@ class LFUCache(BaseCaching):
             None
         """
         if key and item:
-            if len(self.cache_data) >= self.MAX_ITEMS and key not in self.cache_data:
+            if len(self.cache_data) >= self.MAX_ITEMS and key not in self.cache_data:  # noqa: E501
                 min_key = min(self.order, key=self.order.get)
                 if min_key:
                     del self.cache_data[min_key]
