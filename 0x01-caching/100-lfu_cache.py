@@ -12,15 +12,14 @@ class LFUCache(BaseCaching):
     
     def put(self, key, item):
         if key and item:
-            if key not in self.cache_data:
-                self.order[key] = 0
-            elif len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-                discard = self.lfu
-                self.order[discard] = 0
-                del self.cache_data[discard]
+            if len(self.cache_data) >= self.MAX_ITEMS and key not in self.cache_data:
+                min_key = min(self.order, key=self.order.get)
+                if min_key:
+                    del self.cache_data[min_key]
+                    del self.order[min_key]
+                    print("DISCARD:", min_key)
             self.cache_data[key] = item
-            self.order[key] += 1
-            self.lfu = max([value for key, value in self.order.items()])
+            self.order[key] = 0
     
     def get(self, key):
         if key in self.cache_data:
