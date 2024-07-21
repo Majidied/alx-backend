@@ -18,6 +18,7 @@ class Config:
 app = Flask(__name__)
 babel = Babel(app)
 babel.config = Config()
+app.config.from_object(Config)
 
 
 @app.route('/', methods=['GET'], strict_slashes=False)
