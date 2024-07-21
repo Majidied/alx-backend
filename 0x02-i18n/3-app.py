@@ -21,7 +21,6 @@ babel.config = Config()
 app.config.from_object(Config)
 
 
-@babel.localeselector
 def get_locale() -> str:
     """ Get locale
     Return: Best match language code for user
@@ -35,3 +34,8 @@ def index() -> str:
     Return: 0-index.html
     """
     return render_template('2-index.html')
+
+
+if __name__ == "__main__":
+    babel.init_app(app, locale_selector=get_locale)
+    app.run(host="0.0.0.0", port="5000")
