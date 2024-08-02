@@ -1,23 +1,32 @@
-import redis from 'redis';
+import { print, createClient } from 'redis';
 
-const client = redis.createClient();
+const redisClient = createClient();
 
-client.on('connect', () => {
-    console.log('Redis client connected to the server')
+redisClient.on('error', (error) => {
+  console.log(`Redis client not connected to server: ${error.message}`);
+  redisClient.quit();
 });
+redisClient.on('connect', () => console.log('Redis client connected to the server'));
 
-client.on('error', (err) => {
-    console.log('Redis client not connected to the server: ' + err)
-});
-
+console.log(redisClient.connected);
+/**
+ * Set a key-value pair in redis
+ * @param {string} schoolName - key
+ * @param {string} value      - value
+ */
 function setNewSchool(schoolName, value) {
-    client.set(schoolName, value, redis.print);
+  redisClient.set(schoolName, value, print);
 }
 
+/**
+ * Gets and display the value associated with given key
+ * in redis store.
+ * @param {string} schoolName - key to search in redis
+ */
 function displaySchoolValue(schoolName) {
-    client.get(schoolName, (err, reply) => {
-        console.log(reply);
-    });
+  redisClient.get(schoolName, (_error, value) => {
+    if (value) console.log(value);
+  });
 }
 
 displaySchoolValue('Holberton');
