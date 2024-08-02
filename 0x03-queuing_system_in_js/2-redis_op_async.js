@@ -1,6 +1,8 @@
 import { print, createClient } from 'redis';
+import { promisify } from 'util';
 
 const redisClient = createClient();
+const getAsync = promisify(redisClient.get).bind(redisClient);
 
 redisClient.on('error', (error) => {
   console.log(`Redis client not connected to server: ${error.message}`);
@@ -24,9 +26,9 @@ function setNewSchool(schoolName, value) {
  * @param {string} schoolName - key to search in redis
  */
 function displaySchoolValue(schoolName) {
-  redisClient.get(schoolName, (_error, value) => {
-    if (value) console.log(value);
-  });
+    getAsync(schoolName).then((value) => {
+        console.log(value);
+    });
 }
 
 displaySchoolValue('Holberton');
