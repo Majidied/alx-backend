@@ -1,5 +1,9 @@
 import redis from 'redis';
 
+/**
+ * Redis client instance.
+ * @type {RedisClient}
+ */
 const client = redis.createClient();
 
 client.on('connect', () => {
