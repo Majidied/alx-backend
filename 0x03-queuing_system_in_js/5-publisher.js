@@ -11,6 +11,13 @@ redisClient.on('error', (error) => {
   redisClient.quit();
 });
 
+/**
+ * Publishes a message to a Redis channel after a specified delay.
+ *
+ * @param {string} message - The message to be published.
+ * @param {number} time - The delay in milliseconds before publishing the message.
+ * @returns {void}
+ */
 function publishMessage(message, time) {
   setTimeout(() => {
     console.log(`About to send ${message}`);

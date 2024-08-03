@@ -1,3 +1,9 @@
+/**
+ * Creates push notification jobs and adds them to a queue.
+ * @param {Array} jobs - An array of job data.
+ * @param {Object} queue - The queue object to add the jobs to.
+ * @throws {Error} If jobs is not an array.
+ */
 function createPushNotificationsJobs(jobs, queue) {
   try {
     jobs.forEach((jobData) => {

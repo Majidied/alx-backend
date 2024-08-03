@@ -23,10 +23,24 @@ client.on('connect', async () => {
 const getAsync = promisify(client.get).bind(client);
 const setAsync = promisify(client.set).bind(client);
 
+/**
+ * Retrieves an item from the list of products by its ID.
+ *
+ * @param {number} id - The ID of the item to retrieve.
+ * @returns {Object|undefined} The item object if found, otherwise undefined.
+ */
 function getItemById(id) {
     return listProducts.find((product) => product.Id === id);
 }
 
+/**
+ * Reserves stock for a given item by its ID.
+ *
+ * @param {string} itemId - The ID of the item to reserve stock for.
+ * @param {number} stock - The amount of stock to reserve.
+ * @throws {Error} If there is not enough stock available.
+ * @returns {Promise<void>} A Promise that resolves when the stock is successfully reserved.
+ */
 async function reserveStockById(itemId, stock) {
     const reply = await getAsync(itemId);
     const currentStock = parseInt(reply);
@@ -38,6 +52,12 @@ async function reserveStockById(itemId, stock) {
     await setAsync(itemId, currentStock - stock);
 }
 
+/**
+ * Retrieves the current reserved stock for a given item by its ID.
+ *
+ * @param {string} itemId - The ID of the item to retrieve the reserved stock for.
+ * @returns {Promise<number>} A Promise that resolves with the current reserved stock.
+ */
 async function getCurrentReservedStockById(itemId) {
     const reply = await getAsync(itemId);
     return parseInt(reply);
